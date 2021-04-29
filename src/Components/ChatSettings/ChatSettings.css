@@ -1,0 +1,60 @@
+.chat-right-panel {
+  width: 40%;
+  background-color: white;
+  padding: 1em;
+}
+
+.chat-right-panel-inner-white-panel {
+  background-color: #e3f6fc;
+  border-radius: 0.5em;
+  display: flex;
+  flex-direction: column;
+}
+
+.wrong-button {
+  padding: 1%;
+  font-size: x-large;
+  color: #6588de;
+  height: 5%;
+}
+
+.display-picture {
+  height: fit-content;
+  padding: 10%;
+}
+.display-picture > img {
+  border: 2px solid #6588de;
+  border-radius: 10em;
+}
+
+.search-button {
+  display: flex;
+  flex-direction: row;
+  padding-left: 20%;
+  padding-bottom: 2%;
+  border-bottom: 1px solid #6588de;
+  height: fit-content;
+}
+
+.search-button > button {
+  height: fit-content;
+  width: fit-content;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.search-button-icon {
+  width: 3em;
+}
+.delete-chat {
+  margin-top: 1em;
+  height:5%;
+}
+.delete-chat > button{
+  background-color: transparent;
+  border: 1px solid red;
+  color:red;
+  border-radius: 2em;
+  outline: none;
+  cursor: pointer;
+}

@@ -1,0 +1,42 @@
+  .chat-contact-active {
+  background-color: #6588de !important;
+  color: white;
+}
+
+.chat-contact {
+  background-color: #e3f6fc;
+  height: 10%;
+  border-radius: 0.3em;
+  display: flex;
+  flex-direction: row;
+  padding: 1.5%;
+  margin-bottom: 1em;
+}
+
+.chat-contact-individual-logo{
+  max-width: 40px;
+}
+
+.chat-contact-individual-logo > img {
+  border-radius: 20em;
+}
+
+.chat-contact-message-details {
+  display: flex;
+  flex-direction: column;
+  padding: 2%;
+}
+
+.chat-contact-name{
+  font-size:medium;
+  font-weight: bolder;
+}
+
+.chat-contact-message {
+  font-size:small;
+}
+
+.chat-contact-message-time {
+  width: 20%;
+  font-size: small;
+}
