@@ -46,11 +46,11 @@
 .search-button-icon {
   width: 3em;
 }
-.delete-chat {
+.delete-chat,.logout-chat {
   margin-top: 1em;
   height:5%;
 }
-.delete-chat > button{
+.delete-chat > button, .logout-chat > button{
   background-color: transparent;
   border: 1px solid red;
   color:red;

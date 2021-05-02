@@ -10,11 +10,26 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      login: false,
+      isLoggedIn: false,
+      userName: "",
+      userEmail: "",
+      userPhotoURL: "",
     };
   }
+
+  updateUserLoginInfo = (userInfo) => {
+    this.setState({
+      isLoggedIn: userInfo.isLoggedIn,
+      userName: userInfo.displayName,
+      userEmail: userInfo.email,
+      userPhotoURL: userInfo.photoURL,
+    });
+  };
   render() {
-    if (this.state.login === false) return <Login />;
+    console.log(this.state.isLoggedIn)
+    if (this.state.isLoggedIn === false) {
+      return <Login updateUserLoginInfo={this.updateUserLoginInfo} />;
+    }
     return (
       <div className="app-container">
         <div className="chat-left-panel">
@@ -37,7 +52,7 @@ class App extends Component {
           </div>
         </div>
         <ChatFeed />
-        <ChatSettings />
+        <ChatSettings userLogout={this.updateUserLoginInfo}/>
       </div>
     );
   }

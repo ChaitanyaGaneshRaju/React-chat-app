@@ -58,5 +58,5 @@ align-items: center !important;
 
 .chat-login > h1{
   height: fit-content;
-  padding-left: 40%;
+  text-align: center;
 }
