@@ -1,11 +1,9 @@
 import React, { Component } from "react";
 import "./Login.css";
-import {firebaseConfig} from "../Firebase/Firebase"
+import { db } from "../Firebase/Firebase";
 
 // Firebase App (the core Firebase SDK) is always required and must be listed first
 import firebase from "firebase/app";
-
-firebase.initializeApp(firebaseConfig);
 
 
 class Login extends Component {
@@ -13,6 +11,7 @@ class Login extends Component {
     super(props);
     this.state = {
       isLoggedIn: false,
+      userId:"",
       userName: "",
       userEmail: "",
       userPhotoURL: "",
@@ -20,11 +19,11 @@ class Login extends Component {
   }
 
   authenticateUser = () => {
-    var provider = new firebase.auth.GoogleAuthProvider();
+    let provider = new firebase.auth.GoogleAuthProvider();
     firebase
       .auth()
       .signInWithPopup(provider)
-      .then((result) => {
+      .then((result) => { 
         /** @type {firebase.auth.OAuthCredential} */
       })
       .catch((error) => {
@@ -32,23 +31,43 @@ class Login extends Component {
       });
   };
 
-  componentDidMount=()=>{
-    firebase.auth().onAuthStateChanged((user) => { // 👈
+  componentDidMount = () => {
+    firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        console.log(this)
+        //creating user in firestore db
+        // Add a new document in collection "cities"
+        db.collection("users")
+          .doc(user.uid)
+          .set({
+            userId:user.uid,
+            userName: user.displayName,
+            userEmail: user.email,
+            userPhotoURL: user.photoURL,
+            onlineStatus:true
+          }, { merge: true })
+          .then(() => {
+          })
+          .catch((error) => {
+            console.error("Error writing document: ", error);
+          });
+
+          //user reference to avoid the overwritting of the data in firestore
+
+          //let userRef=db.collection("users").doc(user.id);
+
         this.setState({
-          isLoggedIn:true,
-          userName:user.displayName,
+          userId:user.uid,
+          isLoggedIn: true,
+          userName: user.displayName,
           userEmail: user.email,
           userPhotoURL: user.photoURL,
-        })
+        });
         this.props.updateUserLoginInfo(this.state);
-        console.log("userSignedIn")
       } else {
         console.log(" No user is signed in.");
       }
-    });    
-  }
+    });
+  };
 
   render() {
     return (

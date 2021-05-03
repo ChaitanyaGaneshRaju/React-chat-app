@@ -30,6 +30,7 @@
 .chat-contact-name{
   font-size:medium;
   font-weight: bolder;
+  cursor: pointer;
 }
 
 .chat-contact-message {

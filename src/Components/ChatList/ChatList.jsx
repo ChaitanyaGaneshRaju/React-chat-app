@@ -1,25 +1,35 @@
-import React, { Component } from "react";
-import logo from "../Rama.jpg";
+import React, { Component } from "react"
 import "./ChatList.css";
+import {db} from "../Firebase/Firebase"
 
 class ChatList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loggedUser:this.props.loggedUser,
+      usersList: this.props.usersList,
+    };
+  }
+  chatWithContact = () => {
+    db.collection("users").doc(this.state.loggedUser.userId)
+  };
   render() {
-    return (
-      <div>
-        <div className="chat-contact chat-contact-active">
-          <div className="chat-contact-individual-logo">
-            <img src={logo} alt="" />
-          </div>
-          <div className="chat-contact-message-details">
-            <label className="chat-contact-name">Lord Rama</label>
-            <label className="chat-contact-message">hello world</label>
-          </div>
-          <div className="chat-contact-message-time">
-            <label>10:30</label>
+    return this.state.usersList.map((user) => {
+      return (
+        <div key={user.uid}>
+          <div className="chat-contact chat-contact-active">
+            <div className="chat-contact-individual-logo">
+              <img src={user.userPhotoURL} alt="" />
+            </div>
+            <div className="chat-contact-message-details">
+              <label className="chat-contact-name" onClick={() => this.chatWithContact()}>
+                {user.userName}
+              </label>
+            </div>
           </div>
         </div>
-      </div>
-    );
+      );
+    });
   }
 }
 
