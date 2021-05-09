@@ -14,7 +14,8 @@
 }
 
 .chat-contact-individual-logo{
-  max-width: 40px;
+  max-width: 45px;
+  object-fit: cover;
 }
 
 .chat-contact-individual-logo > img {

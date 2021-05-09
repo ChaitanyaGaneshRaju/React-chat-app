@@ -114,14 +114,30 @@
 .insert-clip {
   font-size: medium;
   width: 1em;
-  padding-left: 1em;
+  padding-left: 2em;
   padding-top: 1em;
 }
 
-.chat-form > input {
-  height: 80%;
+
+.chat-form >form  > input {
+  height: fit-content;
   border: 1px solid #6588de;
   border-radius: 5em;
   outline: none;
   padding: 0.5em;
+}
+
+.chat-no-selected-user-display{
+  height:100%
+}
+
+.chat-no-selected-user-display > h3{
+  color:#6588de;
+  height: fit-content;
+  margin-top: 40%;
+  text-align: center;
+}
+
+.scroll-div{
+  height:0%;
 }

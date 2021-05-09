@@ -5,13 +5,12 @@ import { db } from "../Firebase/Firebase";
 // Firebase App (the core Firebase SDK) is always required and must be listed first
 import firebase from "firebase/app";
 
-
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isLoggedIn: false,
-      userId:"",
+      userId: "",
       userName: "",
       userEmail: "",
       userPhotoURL: "",
@@ -23,7 +22,7 @@ class Login extends Component {
     firebase
       .auth()
       .signInWithPopup(provider)
-      .then((result) => { 
+      .then((result) => {
         /** @type {firebase.auth.OAuthCredential} */
       })
       .catch((error) => {
@@ -36,27 +35,37 @@ class Login extends Component {
       if (user) {
         //creating user in firestore db
         // Add a new document in collection "cities"
+
         db.collection("users")
           .doc(user.uid)
-          .set({
-            userId:user.uid,
-            userName: user.displayName,
-            userEmail: user.email,
-            userPhotoURL: user.photoURL,
-            onlineStatus:true
-          }, { merge: true })
-          .then(() => {
+          .get()
+          .then((doc) => {
+            if (!doc.exists) {
+              db.collection("users")
+                .doc(user.uid)
+                .set(
+                  {
+                    userId: user.uid,
+                    userName: user.displayName,
+                    userEmail: user.email,
+                    userPhotoURL: user.photoURL,
+                    onlineStatus: true,
+                    contacts: [],
+                  },
+                  { merge: true }
+                )
+                .then(() => {})
+                .catch((error) => {
+                  console.error("Error writing document: ", error);
+                });
+            }
           })
           .catch((error) => {
-            console.error("Error writing document: ", error);
+            console.log(error)
           });
-
-          //user reference to avoid the overwritting of the data in firestore
-
-          //let userRef=db.collection("users").doc(user.id);
-
+          
         this.setState({
-          userId:user.uid,
+          userId: user.uid,
           isLoggedIn: true,
           userName: user.displayName,
           userEmail: user.email,
